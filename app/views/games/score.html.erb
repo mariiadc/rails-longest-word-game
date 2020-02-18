@@ -1,0 +1,19 @@
+<div class="container">
+  <h1>Results</h1>
+</div>
+<div class="container">
+<%if @dictionary["found"]%>
+  <%@letters.each { |a| @grid_hash[a.downcase] += 1 }%>
+  <%@word.chars.each { |a| @grid_hash[a.to_s.downcase] -= 1 }%>
+  <%if @grid_hash.values.all? { |v| v >= 0 }%>
+    <p><strong>Congratulation!</strong> <%=@word.upcase%> is a valid English word!</p>
+  <%else%>
+    <p>Sorry but <strong><%=@word.upcase%></strong> can't be built out of <%=@letters.join('')%></p>
+  <%end%>
+<%else%>
+  <p>"Sorry but <strong><%=@word.upcase%></strong> does not seem to be a valid English word..."</p>
+<%end%>
+</div>
+<div class="container">
+  <%=link_to 'Play again', "http://localhost:3000/new"%>
+</div>
